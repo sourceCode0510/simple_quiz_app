@@ -1,0 +1,126 @@
+
+now before going to Ui design, first let's make some constant variables.
+- create a separate file.
+
+let's start creating our homepage.
+let's delete all the default code and start from scratch.
+
+- let's start work on Ui
+- change the background color and the appbar first.
+- import the constants.dart in our homepage. (because it has our colors.)
+
+- let's add some demo questions.
+
+- now let's create our question widget.
+- let's add it to our homepage.
+- change the styling of question.
+- with that our question widget is ready.
+
+
+next I'm gonna create the 'Next Question' button.
+- add it to floating action button.
+- let's add some functionalities to it.
+- like when we click the next question will show.
+- to do that we need to pass a function that does all the work.
+- we have an error because when I clicked it second time, the index went from 1 to 2. in the list we have only 2 questions (0, 1). so it didn't find the third.
+- to fix that add some conditions.
+and now it's fixed. now if it finds that the list has ended, it will do nothing.
+
+next let's add the options
+- let's create our custom widget for an option.
+- let's add it to homescreen
+- make it clickable.
+- we also need to change the color when clicked 
+- now that's cheating. we can't let user know the answer even before he select anything.
+- let's add some conditions about it. if the user has clicked then change the color otherwise don't change the color.
+- now that's fixed but we have to add a function for when the isPressed value change.
+- now here's another problem that when we click the next question, the value of isPressed is unchanged so it shows all the answers like before.
+- let's fix that, we do it in 'nextQuestion' function.
+- that's fixed now. on to next part.
+
+now there is a little problem here.
+you see that when a user clicks the next button then he can go to the next question even though he didn't select any options. we don't want that. we want if a user didn't select any option the app will show a message that he has to select at least one option to continue. let's do that.
+- at that's fixed now.
+
+- let's add some score to show in our app.
+    let's add some functionalities to increase the value of our score.
+    when the user answers correctly of a question then the score will go up by 1 point.
+    let's remove the gesture detector from inside of optioncard and put it in parent widget.
+    and that's a problem. it increases even though the user already selected once.
+    let's fix that.
+    let's make it's value to false on next question
+    ok it's working fine now.
+    
+- alright everything looks good so far but, I want to change something.
+    you see when the color of our optioncard changes the Text on the red area is a little hard to read.
+    I want to make it so when the color changes the color of our text will change too.
+    so how did that work.
+    0xFF32AB58
+    0xFFAB3232
+    these two colors have same combinations of blue;
+    so if the color we provide here doesn't have the same combination of 'red' and 'green' then it's the neutral color we created before, and the text color will become black and if the 'red' and 'green' are same then it's either 'red' or 'green' color(to sum it up it's a darker color) then, it's gonna display our 'neutral' color.
+    sorry if you got confused, play with the colors and you will get it.
+
+
+- now let's create a result box at the end of our quiz. it's gonna show the result of user.
+    let's create our dialog box in a separate file.
+    that's our result box.
+
+
+- now let's add a button to start the quiz from start.
+            now we need a function to do the work
+             we will create that in homescreen.dart
+- looks like we have another problem here, we can't select the wrong one.
+    - that fixed it.
+
+- let's start working on database.
+    go to 'firebase.google.com'
+    you have to log in to use the firebase services.
+    once logged in, click on 'go to console' and then create a project.
+    once created, then click on 'realtime database',
+    create a database in 'test mode'.
+
+- let's make a separate file for database actions
+    to connect to database, firebase has it's own package for flutter, but that's too advanced subject. so we will use the lightweigth 'http' package.
+    enter 'flutter pub add http' in terminal.
+
+    let's start creating our functions.
+    firebase understands json data so we have to convert our questions to .json format.
+    to do that we use another package called 'convert' which is built in 'dart'.
+
+    let's try to add a question in database.
+    -create an object for 'DBconnect' class in main.dart and add a question.
+    - hot restart to run the main method.
+    - that's how you add a question in database.
+
+
+
+- let's fetch the questions from the database.
+    use the same method we used to add questions.
+    that's how you fetch questions from the database.
+
+
+- let's add some more data to database.
+    - ok let's try to fetch these.
+    - the function is already there. so just hot restart it.
+    - so we can see the questions we added.
+
+
+- time to display the questions from our database in our app.
+    - first of all, when we fetch the data from our database it's in a 'Map<dynamic, dynamic>' format. we have to convert it to 'Map<String, dynamic>'.
+
+    - then we need each 'key, value' pair to a question.
+    - then we need some place to save these questions we created.
+    - this error occured because our 'options' is in Map<String, dynamic> format. 
+      we need that in Map<String, bool> format. to convert it use Map.caste method
+
+- now we need to replace the in app questions to the questions we fetched from database.
+
+- with that now we are fetching the quesitons from database and displaying it in our app. 
+- there you have it. the simple quiz app that fetches data from database.
+- we don't need the addQuestion method anymore.
+- but if you want to add questions directly from app then you should leave it as it is. but you have to create another page for Adding Questions.
+
+
+I think that's enough for now. 
+thanks for watching...
